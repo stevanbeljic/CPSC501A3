@@ -7,13 +7,14 @@
  * Primary driver class.
  */
 
+import java.lang.reflect.Field;
 import java.util.Scanner;
 
 public class Driver {
     public static void main(String[] args){
 
         //create the initial object
-        Object toSerializObject = initialObjectCreation();
+        Object toSerializeObject = initialObjectCreation();
 
     }
 

@@ -1,4 +1,8 @@
+import java.lang.reflect.Field;
+import java.lang.reflect.Type;
 import java.util.Scanner;
+
+import ObjectCollection.SimpleObject;
 
 public class ObjectCreator{
     /*
@@ -24,7 +28,7 @@ public class ObjectCreator{
      */
     public Object simpleObject(){
         System.out.println("Creating simple object");
-        return null;
+        return createSimpleObject();
     }
 
     /*
@@ -57,5 +61,87 @@ public class ObjectCreator{
     public Object collectionObj(){
         System.out.println("Creating collection object");
         return null;
+    }
+
+    /*
+     * Sets the fields in a simple object
+     */
+    private Object createSimpleObject(){
+        Scanner kb = new Scanner(System.in);
+
+        SimpleObject simpleObj = new SimpleObject();
+        Class objClass = simpleObj.getClass();
+        Field fields[] = objClass.getFields();
+
+        for (Field f : fields){
+            f.setAccessible(true);
+            Type fieldType = f.getType();
+
+            try{
+                if(fieldType.equals(int.class)){
+                    f.setInt(simpleObj, setSimpleInt(kb));
+                } else if(fieldType.equals(char.class)){
+                    f.setChar(simpleObj, setSimpleChar(kb));
+                } else if(fieldType.equals(boolean.class)){
+                    f.setBoolean(simpleObj, setSimpleBoolean(kb));
+                } else if(fieldType.equals(double.class)){
+                    f.setDouble(simpleObj, setSimpleDouble(kb));
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        
+        kb.close();
+        return simpleObj;
+    }
+
+    private boolean setSimpleBoolean(Scanner kb){
+        String input;
+        while (true){
+            System.out.print("\nEnter \"true\" or \"false\": ");
+            input = kb.nextLine();
+            if(input.equals("true") || input.equals("false")){
+                return Boolean.parseBoolean(input);
+            }
+        }
+    }
+    private int setSimpleInt(Scanner kb) {
+        String input;
+        while (true) {
+            System.out.print("Enter an integer: ");
+            input = kb.nextLine();
+            try {
+                return Integer.parseInt(input);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid integer provided.");
+            }
+        }
+    }
+
+    private double setSimpleDouble(Scanner kb) {
+        String input;
+
+        while (true) {
+            System.out.print("Enter a double: ");
+            input = kb.nextLine();
+            try {
+                return Double.parseDouble(input);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid double provided.");
+            }
+        }
+    }
+
+    private char setSimpleChar(Scanner kb) {
+        while(true){
+            System.out.print("Enter a character: ");
+            String input = kb.nextLine();
+            if (input.length() == 1) {                    
+                return input.charAt(0);
+            } else {
+                System.out.println("Invalid char provided.");
+            }
+        }
     }
 }
