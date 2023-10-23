@@ -7,14 +7,27 @@
  * Primary driver class.
  */
 
+import java.io.Serial;
 import java.lang.reflect.Field;
 import java.util.Scanner;
+import org.w3c.dom.Document;
 
 public class Driver {
     public static void main(String[] args){
 
         //create the initial object
         Object toSerializeObject = initialObjectCreation();
+
+        //serialize the object
+        Serializer serializer = new Serializer();
+        Document toSendDocument = serializer.serialize(toSerializeObject);
+        System.out.println("Object serialized");
+
+        //send document
+        Sender sender = new Sender();
+        sender.send(toSendDocument);
+        System.out.println("Document sent to ");
+
 
     }
 

@@ -2,6 +2,10 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.Scanner;
 
+import ObjectCollection.CollectionObject;
+import ObjectCollection.ReferenceArray;
+import ObjectCollection.ReferenceObject;
+import ObjectCollection.SimpleArray;
 import ObjectCollection.SimpleObject;
 
 public class ObjectCreator{
@@ -24,50 +28,87 @@ public class ObjectCreator{
     }
 
     /*
-     * Selection 1
+     * Selection 1 - a simple object with just primitive fields
      */
     public Object simpleObject(){
+        Scanner kb = new Scanner(System.in);
         System.out.println("Creating simple object");
-        return createSimpleObject();
+        Object returnObj = createSimpleObject(kb);
+        kb.close();
+        return returnObj;
     }
 
     /*
-     * Selection 2
+     * Selection 2 - an object with a reference to another object
      */
     public Object objectReference(){
+        Scanner kb = new Scanner(System.in);
         System.out.println("Creating reference object");
-        return null;
+
+        ReferenceObject returnObj = new ReferenceObject();
+        returnObj.simpleObj = (SimpleObject)createSimpleObject(kb);
+
+        kb.close();
+        return returnObj;
     }
 
     /*
-     * Selection 3
+     * Selection 3 - an array containing primitives
      */
     public Object simpleArray(){
+        Scanner kb = new Scanner(System.in);
         System.out.println("Creating simple array");
-        return null;
+
+        SimpleArray simpleArrayObject = new SimpleArray();
+        int arrayLength = setArrayLength(kb);
+        simpleArrayObject.intArray = new int[arrayLength];
+
+        for(int i = 0; i < arrayLength; i++){
+            simpleArrayObject.intArray[i] = setSimpleInt(kb);
+        }
+
+        kb.close();
+        return simpleArrayObject;
     }
 
     /*
-     * Selection 4
+     * Selection 4 - an array containing references to other objects
      */
     public Object arrayReferences(){
         System.out.println("Creating references array");
-        return null;
+        Scanner kb = new Scanner(System.in);
+
+        int arrayLength = setArrayLength(kb);
+        ReferenceArray refArray = new ReferenceArray(arrayLength);
+
+        for(int i = 0; i < arrayLength; i++){
+            refArray.simpleObjectArray[i] = (SimpleObject)createSimpleObject(kb);
+        }
+
+        kb.close();
+        return refArray;
     }
 
     /*
      * Selection 5
      */
     public Object collectionObj(){
+        Scanner kb = new Scanner(System.in);
+
         System.out.println("Creating collection object");
-        return null;
+        int collectionLength = setArrayLength(kb);
+
+        CollectionObject collectionObj = new CollectionObject();
+        for(int i = 0; i < collectionLength; i++){
+            collectionObj.simpleObjectCollection.add((SimpleObject)createSimpleObject(kb));
+        }
+        return collectionObj;
     }
 
     /*
      * Sets the fields in a simple object
      */
-    private Object createSimpleObject(){
-        Scanner kb = new Scanner(System.in);
+    public Object createSimpleObject(Scanner kb){
 
         SimpleObject simpleObj = new SimpleObject();
         Class objClass = simpleObj.getClass();
@@ -92,8 +133,21 @@ public class ObjectCreator{
             }
         }
         
-        kb.close();
         return simpleObj;
+    }
+
+    private int setArrayLength(Scanner kb){
+        String input;
+        while (true) {
+            System.out.print("Enter a length (greater or equal to 0): ");
+            input = kb.nextLine();
+            try {
+                int length = Integer.parseInt(input);
+                if(length >= 0) return length;
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid length provided.");
+            }
+        }
     }
 
     private boolean setSimpleBoolean(Scanner kb){
