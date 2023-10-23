@@ -1,5 +1,4 @@
-import org.w3c.dom.Document;
-
+import org.jdom2.Document;
 
 public class Sender {
     

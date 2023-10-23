@@ -10,7 +10,7 @@
 import java.io.Serial;
 import java.lang.reflect.Field;
 import java.util.Scanner;
-import org.w3c.dom.Document;
+import org.jdom2.Document;
 
 public class Driver {
     public static void main(String[] args){
@@ -27,8 +27,6 @@ public class Driver {
         Sender sender = new Sender();
         sender.send(toSendDocument);
         System.out.println("Document sent to ");
-
-
     }
 
     /*
