@@ -11,6 +11,7 @@ import java.io.Serial;
 import java.lang.reflect.Field;
 import java.util.Scanner;
 import org.jdom2.Document;
+import org.jdom2.output.XMLOutputter;
 
 public class Driver {
     public static void main(String[] args){
@@ -23,6 +24,12 @@ public class Driver {
         Document toSendDocument = serializer.serialize(toSerializeObject);
         System.out.println("Object serialized");
 
+        System.out.println("\n\n\n"+toSendDocument.toString()+"\n\n\n");
+        try{
+            new XMLOutputter().output(toSendDocument, System.out);
+        } catch (Exception e){
+            
+        }
         //send document
         Sender sender = new Sender();
         sender.send(toSendDocument);
