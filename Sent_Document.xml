@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<serialized>
+  <object class="ObjectCollection.SimpleObject" id="0">
+    <field name="aBoolean" declaringclass="ObjectCollection.SimpleObject">
+      <value>true</value>
+    </field>
+    <field name="anInt" declaringclass="ObjectCollection.SimpleObject">
+      <value>1</value>
+    </field>
+    <field name="aDouble" declaringclass="ObjectCollection.SimpleObject">
+      <value>1.0</value>
+    </field>
+    <field name="aChar" declaringclass="ObjectCollection.SimpleObject">
+      <value>a</value>
+    </field>
+  </object>
+</serialized>
