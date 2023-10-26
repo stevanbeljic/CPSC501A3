@@ -24,6 +24,9 @@ public class Driver {
         Document toSendDocument = serializer.serialize(toSerializeObject);
         System.out.println("Object serialized");
 
+        //send the object
+        new Sender().send(toSendDocument);
+
         // try{
         //     new XMLOutputter().output(toSendDocument, System.out);
         // } catch (Exception e){
@@ -31,19 +34,18 @@ public class Driver {
         // }
         //send document
 
-        Deserializer deserializer = new Deserializer();
-        Object deserializedObject;
-        try{
-            deserializedObject = deserializer.deserialize(toSendDocument);
-            Inspector inspector = new Inspector();
+        // Deserializer deserializer = new Deserializer();
+        // Object deserializedObject;
+        // try{
+        //     deserializedObject = deserializer.deserialize(toSendDocument);
+        //     Inspector inspector = new Inspector();
 
-            System.out.println("======================================================\n======================================================");
-            inspector.inspect(deserializedObject, true);
-            System.out.println("======================================================\n======================================================");
-        } catch (Exception e) {
-            e.printStackTrace(System.out);
-        }
-
+        //     System.out.println("======================================================\n======================================================");
+        //     inspector.inspect(deserializedObject, true);
+        //     System.out.println("======================================================\n======================================================");
+        // } catch (Exception e) {
+        //     e.printStackTrace(System.out);
+        // }
 
     }
 

@@ -59,16 +59,17 @@ public class ObjectCreator{
         Scanner kb = new Scanner(System.in);
         System.out.println("Creating simple array");
 
-        SimpleArray simpleArrayObject = new SimpleArray();
         int arrayLength = setArrayLength(kb);
+
+        SimpleArray simpleArrayObject = new SimpleArray();
         simpleArrayObject.intArray = new int[arrayLength];
 
         for(int i = 0; i < arrayLength; i++){
             simpleArrayObject.intArray[i] = setSimpleInt(kb);
         }
-
+        
         kb.close();
-        return simpleArrayObject;
+        return simpleArrayObject.intArray;
     }
 
     /*
@@ -86,7 +87,7 @@ public class ObjectCreator{
         }
 
         kb.close();
-        return refArray;
+        return refArray.simpleObjectArray;
     }
 
     /*

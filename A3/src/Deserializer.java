@@ -42,7 +42,10 @@ public class Deserializer {
                     f.set(instance, deserializeValue(vElt, f.getType(), table));
                 }
             } else {
-
+                Class comptype = instance.getClass().getComponentType();
+                for(int j = 0; j < fElts.size(); j++){
+                    Array.set(instance, j, deserializeValue( (Element)fElts.get(j), comptype, table ));                
+                }
             }
         }
     }

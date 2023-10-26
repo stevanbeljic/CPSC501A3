@@ -19,7 +19,7 @@ public class Serializer {
             return seralizedDocument;
         } catch (Exception e){
             System.out.println("ERROR: in serialization");
-            System.out.println(e.getCause().toString());
+            e.printStackTrace(System.out);
             return null;
         }
     }
@@ -36,12 +36,18 @@ public class Serializer {
 
         if(sourceClass.isArray()){
             System.out.println("Source class IS array");
-            target = null;
+            Class componentType = sourceClass.getComponentType();
+
+            int length = Array.getLength(source);
+            oElt.setAttribute("length", Integer.toString(length));
+            for(int i = 0; i < length; i++){
+                oElt.addContent(serializeVariable(componentType, Array.get(source, i), target, table));
+            }
         } else {
             System.out.println("Source class NOT array");
             Field fields[] = sourceClass.getDeclaredFields();
             for(Field f : fields){
-                if(Modifier.isPublic(f.getModifiers())){
+                if(!Modifier.isPublic(f.getModifiers())){
                     f.setAccessible(true);
                 }
                 Element fElt = new Element("field");

@@ -1,9 +1,32 @@
+import java.io.ObjectOutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+
 import org.jdom2.Document;
 
 public class Sender {
     
-    int port = 6666;
     public void send(Document toSendDocument){
+        int port = 6666;
+        try{
+            ServerSocket serverSocket = new ServerSocket(port);
+
+            while(true){
+                System.out.println("Waiting for a client...");
+                Socket clientSocket = serverSocket.accept();
+                System.out.println("Client connected");
+
+                ObjectOutputStream outputStream = new ObjectOutputStream(clientSocket.getOutputStream());
+                outputStream.writeObject(toSendDocument);
+                outputStream.close();
+                clientSocket.close();
+                break;
+            }
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+         
 
     }
 
