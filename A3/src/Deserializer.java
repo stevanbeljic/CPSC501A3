@@ -9,6 +9,9 @@ import java.util.Map;
 import org.jdom2.Document;
 import org.jdom2.Element;
 
+/*
+ * Deserializer from Java Reflection in Action - Forman & Forman
+ */
 public class Deserializer {
     
     public Object deserialize(Document source) throws Exception {
