@@ -5,7 +5,7 @@ public class Client {
 
         Reciever reciever = new Reciever();
         Document rDocument;
-        try{
+        try {
             rDocument = reciever.recieve();
         } catch (Exception e){
             e.printStackTrace();
