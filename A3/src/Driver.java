@@ -7,11 +7,8 @@
  * Primary driver class.
  */
 
-import java.io.Serial;
-import java.lang.reflect.Field;
 import java.util.Scanner;
 import org.jdom2.Document;
-import org.jdom2.output.XMLOutputter;
 
 public class Driver {
     public static void main(String[] args){

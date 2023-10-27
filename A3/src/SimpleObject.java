@@ -1,4 +1,3 @@
-package ObjectCollection;
 
 public class SimpleObject{
     public boolean aBoolean;

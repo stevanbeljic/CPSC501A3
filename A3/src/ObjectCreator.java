@@ -2,13 +2,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.util.Scanner;
 
-import ObjectCollection.CollectionObject;
-import ObjectCollection.ReferenceArray;
-import ObjectCollection.ReferenceObject;
-import ObjectCollection.SimpleArray;
-import ObjectCollection.SimpleObject;
-
-public class ObjectCreator{
+public class ObjectCreator {
     /*
      * Must be able to create the following objects:
      *      - a simple object with only primitives for instance variables, which must be setable
