@@ -2,6 +2,8 @@ import org.jdom2.*;
 import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.IdentityHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -83,6 +85,7 @@ public class Serializer {
                 reference.setText(Integer.toString(table.size()));
                 serializeHelper(child, target, table);
             }
+            
             return reference;
         } else {
             Element value = new Element("value");

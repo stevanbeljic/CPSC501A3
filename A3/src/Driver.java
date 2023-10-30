@@ -7,8 +7,12 @@
  * Primary driver class.
  */
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 import org.jdom2.Document;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 
 public class Driver {
     public static void main(String[] args){
@@ -19,6 +23,13 @@ public class Driver {
         //serialize the object
         Serializer serializer = new Serializer();
         Document toSendDocument = serializer.serialize(toSerializeObject);
+        // XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
+        // try {
+        //     outputter.output(toSendDocument, System.out);
+        // } catch (IOException e) {
+        //     // TODO Auto-generated catch block
+        //     e.printStackTrace();
+        // }
         System.out.println("Object serialized");
 
         //send the object

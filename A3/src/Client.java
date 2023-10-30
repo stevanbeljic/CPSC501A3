@@ -1,4 +1,8 @@
+import java.io.IOException;
+
 import org.jdom2.*;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 
 public class Client {
     public static void main(String[] args){
@@ -13,6 +17,7 @@ public class Client {
         }
         Deserializer deserializer = new Deserializer();
         Object deserializedObject;
+        
         try{
             deserializedObject = deserializer.deserialize(rDocument);
             Inspector inspector = new Inspector();

@@ -1,5 +1,6 @@
 import java.lang.reflect.Field;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class ObjectCreator {
@@ -63,7 +64,8 @@ public class ObjectCreator {
         }
         
         kb.close();
-        return simpleArrayObject.intArray;
+        return simpleArrayObject;
+        //return simpleArrayObject.intArray;
     }
 
     /*
@@ -81,7 +83,8 @@ public class ObjectCreator {
         }
 
         kb.close();
-        return refArray.simpleObjectArray;
+        return refArray;
+        //return refArray.simpleObjectArray;
     }
 
     /*
@@ -93,11 +96,17 @@ public class ObjectCreator {
         System.out.println("Creating collection object");
         int collectionLength = setArrayLength(kb);
 
-        CollectionObject collectionObj = new CollectionObject();
+        CollectionObject collectionObj;
+        ArrayList<SimpleObject> localArrayList= new ArrayList<SimpleObject>();
+
         for(int i = 0; i < collectionLength; i++){
-            collectionObj.simpleObjectCollection.add((SimpleObject)createSimpleObject(kb));
+            localArrayList.add((SimpleObject)createSimpleObject(kb));
         }
-        return collectionObj;
+
+        collectionObj = new CollectionObject();
+        collectionObj.simpleObjectCollection = localArrayList;
+
+        return collectionObj.simpleObjectCollection;
     }
 
     /*

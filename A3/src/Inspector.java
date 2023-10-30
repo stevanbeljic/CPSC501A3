@@ -146,7 +146,11 @@ public class Inspector {
 								System.out.println("\tValue inaccessible");
 							}
 						} else if (field.getType().isArray()) {
-							//examineArray(obj);
+							try{
+								examineArray(field.get(obj));
+							} catch (Exception e){
+								System.out.println("Value inaccesible");
+							}
 						} else if (rec == false){
 								System.out.println("\n\tField: " + field.getName() + ", Type: " + field.getType().getName()+ ", Modifiers: " + Modifier.toString(field.getModifiers()));
 								String hashValue = field.getType().getName()+"-"+field.getType().hashCode();

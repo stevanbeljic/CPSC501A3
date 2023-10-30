@@ -1,5 +1,6 @@
+import java.io.Serializable;
 
-public class SimpleObject{
+public class SimpleObject implements Serializable{
     public boolean aBoolean;
     public int anInt;
     public double aDouble;
