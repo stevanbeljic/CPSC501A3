@@ -1,4 +1,7 @@
 import static org.junit.Assert.fail;
+
+import java.util.ArrayList;
+
 import static org.junit.Assert.assertEquals;
 
 import org.jdom2.Document;
@@ -110,6 +113,43 @@ public class TestSandD {
         assertEquals(refArray1.simpleObjectArray[1].aChar, refArray2.simpleObjectArray[1].aChar);
         assertEquals(refArray1.simpleObjectArray[1].aDouble, refArray2.simpleObjectArray[1].aDouble, 0.1);
         assertEquals(refArray1.simpleObjectArray[1].anInt, refArray2.simpleObjectArray[1].anInt);
+    }
+
+    @Test
+    public void testSandDArrayList(){
+
+        SimpleObject first = new SimpleObject();
+        first.aBoolean = true;
+        first.aChar = 'a';
+        first.aDouble = 2.2;
+        first.anInt = 454;
+
+        SimpleObject second = new SimpleObject();
+        second.aBoolean = false;
+        second.aChar = 'h';
+        second.aDouble = 1.12;
+        second.anInt = 2222;
+
+        CollectionObject cObj1 = new CollectionObject();
+        cObj1.simpleObjectCollection = new ArrayList<>();
+        cObj1.simpleObjectCollection.add(first);
+        cObj1.simpleObjectCollection.add(second);
+
+        Document d = new Serializer().serialize(cObj1);
+        CollectionObject rCollectionObject = null;
+
+        try{
+            rCollectionObject = (CollectionObject) new Deserializer().deserialize(d);
+        } catch (Exception e){
+            fail();
+        }
+
+        assertEquals(cObj1.simpleObjectCollection.size(), rCollectionObject.simpleObjectCollection.size());
+        assertEquals(cObj1.simpleObjectCollection.get(0).aBoolean, rCollectionObject.simpleObjectCollection.get(0).aBoolean);
+        assertEquals(cObj1.simpleObjectCollection.get(0).aChar, rCollectionObject.simpleObjectCollection.get(0).aChar);
+        assertEquals(cObj1.simpleObjectCollection.get(1).aDouble, rCollectionObject.simpleObjectCollection.get(1).aDouble, 0.1);
+        assertEquals(cObj1.simpleObjectCollection.get(1).anInt, rCollectionObject.simpleObjectCollection.get(1).anInt);
+
     }
 
     @Test
