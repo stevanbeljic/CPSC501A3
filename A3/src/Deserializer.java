@@ -5,6 +5,7 @@ import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.ArrayList;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -31,7 +32,15 @@ public class Deserializer {
             Object instance = table.get(oElt.getAttributeValue("id"));
             List fElts = oElt.getChildren();
 
-            if(!instance.getClass().isArray()){
+            if(instance instanceof ArrayList){
+                System.out.println("Recognized instance of ArrayList with size of "+fElts.size());
+                for(int j = 0; j < fElts.size(); j++){
+                    Class comptype = fElts.get(0).getClass();
+                    ((ArrayList)instance).add(deserializeValue((Element)fElts.get(j), comptype, table));
+                }
+                int size = ((ArrayList)instance).size();
+                System.out.println("Got the size of "+size);
+            } else if(!instance.getClass().isArray()){
                 for (int j = 0; j < fElts.size(); j++){
                     Element fElt = (Element) fElts.get(j);
                     String className = fElt.getAttributeValue("declaringclass");
@@ -93,7 +102,9 @@ public class Deserializer {
             Class objClass = Class.forName(oElt.getAttributeValue("class"));
             Object instance = null;
 
-            if(!objClass.isArray()){
+            if(ArrayList.class.isAssignableFrom(objClass)){
+                instance = new ArrayList<SimpleObject>(Integer.parseInt(oElt.getAttributeValue("length")));
+            } else if(!objClass.isArray()){
                 Constructor c = objClass.getDeclaredConstructor(null);
                 if(!Modifier.isPublic(c.getModifiers())){
                     c.setAccessible(true);

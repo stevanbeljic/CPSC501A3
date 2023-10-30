@@ -35,6 +35,26 @@ public class Inspector {
 			examineClass(obj, rec);
 		}
 	}
+
+	public void examineArrayList(Object obj){
+		Class objClass = obj.getClass();
+		ArrayList localArray = (ArrayList)obj;
+
+		System.out.println(localArray.get(0).getClass()+" ArrayList");
+		System.out.println("\tLength: "+localArray.size() + ", Component type: "+localArray.get(0).getClass());
+
+		for(int i = 0; i < localArray.size(); i++){
+			Object arrayElement = localArray.get(i);
+			if(arrayElement == null){
+				System.out.println("Arraylist element "+i+": null");
+			} else if(arrayElement.getClass().isPrimitive()){
+				System.out.println("Arraylist element "+i+": "+arrayElement);
+			} else{
+				examineClass(arrayElement, rec);
+			}
+		}
+
+	}
 	
 	public void examineArray(Object obj) {
 		Class objClass = obj.getClass();
@@ -137,8 +157,13 @@ public class Inspector {
 		System.out.println("\nFields");
 		Field[] fields = c.getDeclaredFields();
 		for (Field field : fields) {
-						
-						if (field.getType().isPrimitive()) {
+						if(ArrayList.class.isAssignableFrom(field.getType())){
+							try{
+								examineArrayList(field.get(obj));
+							} catch (Exception e){
+								System.out.println("ArrayList inaccessible");
+							}
+						} else if (field.getType().isPrimitive()) {
 							System.out.println("\n\tField: " + field.getName() + ", Type: " + field.getType().getName()+ ", Modifiers: " + Modifier.toString(field.getModifiers()));
 							try {
 								field.setAccessible(true);

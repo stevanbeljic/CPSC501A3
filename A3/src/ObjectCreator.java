@@ -108,7 +108,7 @@ public class ObjectCreator {
         collectionObj = new CollectionObject();
         collectionObj.simpleObjectCollection = localArrayList;
 
-        return collectionObj.simpleObjectCollection;
+        return collectionObj;
     }
 
     /*

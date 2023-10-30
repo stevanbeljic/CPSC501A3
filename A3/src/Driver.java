@@ -23,6 +23,7 @@ public class Driver {
         //serialize the object
         Serializer serializer = new Serializer();
         Document toSendDocument = serializer.serialize(toSerializeObject);
+
         // XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
         // try {
         //     outputter.output(toSendDocument, System.out);
@@ -30,31 +31,11 @@ public class Driver {
         //     System.out.println("Error serializing");
         //     e.printStackTrace();
         // }
+
         System.out.println("Object serialized");
 
-        //send the object
+        //send the document
         new Sender().send(toSendDocument);
-
-        // try{
-        //     new XMLOutputter().output(toSendDocument, System.out);
-        // } catch (Exception e){
-            
-        // }
-        //send document
-
-        // Deserializer deserializer = new Deserializer();
-        // Object deserializedObject;
-        // try{
-        //     deserializedObject = deserializer.deserialize(toSendDocument);
-        //     Inspector inspector = new Inspector();
-
-        //     System.out.println("======================================================\n======================================================");
-        //     inspector.inspect(deserializedObject, true);
-        //     System.out.println("======================================================\n======================================================");
-        // } catch (Exception e) {
-        //     e.printStackTrace(System.out);
-        // }
-
     }
 
     /*
@@ -86,7 +67,7 @@ public class Driver {
                     return objCreator.collectionObj();
                 case 6:
                     return objCreator.circularObject();
-                    
+            
                 default:
                     System.out.println("Invalid selection made");
             }

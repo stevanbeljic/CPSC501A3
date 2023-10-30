@@ -48,6 +48,13 @@ public class Serializer {
             for(int i = 0; i < length; i++){
                 oElt.addContent(serializeVariable(componentType, Array.get(source, i), target, table));
             }
+        }else if(source instanceof ArrayList){
+            ArrayList<SimpleObject> localArray = (ArrayList<SimpleObject>)source;
+            Class componentType = localArray.get(0).getClass();
+            oElt.setAttribute("length", Integer.toString(localArray.size()));
+            for(int i = 0; i < localArray.size(); i++){
+                oElt.addContent(serializeVariable(componentType, localArray.get(i), target, table));
+            }
         } else {
             //System.out.println("Source class NOT array");
             Field fields[] = sourceClass.getDeclaredFields();
