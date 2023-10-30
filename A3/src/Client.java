@@ -20,8 +20,11 @@ public class Client {
         
         try{
             deserializedObject = deserializer.deserialize(rDocument);
-            Inspector inspector = new Inspector();
+            // XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
+            // outputter.output(rDocument, System.out);
+            // System.out.println("\n\n\n");
 
+            Inspector inspector = new Inspector();
             System.out.println("======================================================\n======================================================");
             inspector.inspect(deserializedObject, true);
             System.out.println("======================================================\n======================================================");

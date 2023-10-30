@@ -40,7 +40,7 @@ public class Serializer {
         target.getRootElement().addContent(oElt);
 
         if(sourceClass.isArray()){
-            System.out.println("Source class IS array");
+            //System.out.println("Source class IS array");
             Class componentType = sourceClass.getComponentType();
 
             int length = Array.getLength(source);
@@ -49,11 +49,14 @@ public class Serializer {
                 oElt.addContent(serializeVariable(componentType, Array.get(source, i), target, table));
             }
         } else {
-            System.out.println("Source class NOT array");
+            //System.out.println("Source class NOT array");
             Field fields[] = sourceClass.getDeclaredFields();
             for(Field f : fields){
                 if(!Modifier.isPublic(f.getModifiers())){
-                    f.setAccessible(true);
+                    try{
+                        f.setAccessible(true);
+                    } catch (Exception e){
+                    }
                 }
                 Element fElt = new Element("field");
                 fElt.setAttribute("name", f.getName());

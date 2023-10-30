@@ -27,7 +27,7 @@ public class Driver {
         // try {
         //     outputter.output(toSendDocument, System.out);
         // } catch (IOException e) {
-        //     // TODO Auto-generated catch block
+        //     System.out.println("Error serializing");
         //     e.printStackTrace();
         // }
         System.out.println("Object serialized");
@@ -84,6 +84,8 @@ public class Driver {
                     return objCreator.arrayReferences();
                 case 5:
                     return objCreator.collectionObj();
+                case 6:
+                    return objCreator.circularObject();
                     
                 default:
                     System.out.println("Invalid selection made");

@@ -16,6 +16,7 @@ public class Inspector {
 	private String recursionExistsMessage = "**Recursion already performed on this object**";
 
 	public Set<String> examinedObjects = new HashSet<>();
+	private IdentityHashMap<Object, Boolean> examinedCirculars = new IdentityHashMap<>();
 	private boolean rec;
 	
 	public Inspector() { //constructor
@@ -60,6 +61,7 @@ public class Inspector {
 	}
 	
 	public void examineClass(Object obj, boolean recurse) {
+		
 		Class objClass = obj.getClass();
 		String declaringClassName = getDeclaringClassName(objClass);
 		System.out.println("Class name: "+declaringClassName);
@@ -160,8 +162,14 @@ public class Inspector {
 							try{
 								field.setAccessible(true);
 								Object fieldValue = field.get(obj);
+								if(examinedCirculars.containsKey(fieldValue)){
+									System.out.println("Circular reference detected");
+									return;
+								}
+								examinedCirculars.put(fieldValue, true);
+
 								System.out.printf(recursionClassMessage, fieldValue.getClass().getName());
-								examineClass(field.get(fieldValue), rec);
+								examineClass(fieldValue, rec);
 								System.out.println(recursionEndMessage);
 							} catch(Exception e){
 								System.out.println("\tField value inaccesible");

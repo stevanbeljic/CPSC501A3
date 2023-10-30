@@ -20,6 +20,7 @@ public class ObjectCreator {
         System.out.println("\t3. An object with an array of primitives");
         System.out.println("\t4. An object with an array of object references");
         System.out.println("\t5. An object that uses an instance of Java's collection classes to reference other objects");
+        System.out.println("\t6. An object with a circular reference");
     }
 
     /*
@@ -76,7 +77,8 @@ public class ObjectCreator {
         Scanner kb = new Scanner(System.in);
 
         int arrayLength = setArrayLength(kb);
-        ReferenceArray refArray = new ReferenceArray(arrayLength);
+        ReferenceArray refArray = new ReferenceArray();
+        refArray.simpleObjectArray = new SimpleObject[arrayLength];
 
         for(int i = 0; i < arrayLength; i++){
             refArray.simpleObjectArray[i] = (SimpleObject)createSimpleObject(kb);
@@ -107,6 +109,29 @@ public class ObjectCreator {
         collectionObj.simpleObjectCollection = localArrayList;
 
         return collectionObj.simpleObjectCollection;
+    }
+
+    /*
+     * Selection 6 - an object with a reference to another object
+     */
+    public Object circularObject(){
+        Scanner kb = new Scanner(System.in);
+        System.out.println("Creating circular reference object");
+
+        CircularObject obj1 = new CircularObject();
+        CircularObject obj2 = new CircularObject();
+
+        System.out.print("Provide an ID for the first object: ");
+        obj1.objectID = setSimpleInt(kb);
+
+        System.out.print("Provide an ID for the second object: ");
+        obj2.objectID = setSimpleInt(kb);
+
+        obj1.referencedObject = obj2;
+        obj2.referencedObject = obj1;
+
+        kb.close();
+        return obj1;
     }
 
     /*
@@ -143,11 +168,11 @@ public class ObjectCreator {
     private int setArrayLength(Scanner kb){
         String input;
         while (true) {
-            System.out.print("Enter a length (greater or equal to 0): ");
+            System.out.print("Enter a length (greater than 0): ");
             input = kb.nextLine();
             try {
                 int length = Integer.parseInt(input);
-                if(length >= 0) return length;
+                if(length >= 1) return length;
             } catch (NumberFormatException e) {
                 System.out.println("Invalid length provided.");
             }
