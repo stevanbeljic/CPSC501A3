@@ -67,7 +67,7 @@ public class Deserializer {
             return null;
         } else if (valtype.equals("reference")) {
             return table.get(vElt.getText());
-        } else {
+        } else { //primitive value
             return deserializePrimitive(vElt, fieldType, table);
         }
     }
