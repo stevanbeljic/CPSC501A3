@@ -13,6 +13,16 @@ public class ObjectCreator {
      *      - an object that uses an instance of one of Java’s collection classes to refer to several other objects
      */
 
+    private Scanner kbReader;
+    
+    public ObjectCreator(){
+        kbReader = new Scanner(System.in);
+    }
+
+    public void closeScanner(){
+        kbReader.close();
+    }
+    
     public void objectCreationMenu(){
         System.out.println("Which object would you like to create (Enter the corresponding number):");
         System.out.println("\t1. Simple object wth primitive fields");
@@ -27,10 +37,8 @@ public class ObjectCreator {
      * Selection 1 - a simple object with just primitive fields
      */
     public Object simpleObject(){
-        Scanner kb = new Scanner(System.in);
         System.out.println("Creating simple object");
-        Object returnObj = createSimpleObject(kb);
-        kb.close();
+        Object returnObj = createSimpleObject();
         return returnObj;
     }
 
@@ -38,13 +46,11 @@ public class ObjectCreator {
      * Selection 2 - an object with a reference to another object
      */
     public Object objectReference(){
-        Scanner kb = new Scanner(System.in);
         System.out.println("Creating reference object");
 
         ReferenceObject returnObj = new ReferenceObject();
-        returnObj.simpleObj = (SimpleObject)createSimpleObject(kb);
+        returnObj.simpleObj = (SimpleObject)createSimpleObject();
 
-        kb.close();
         return returnObj;
     }
 
@@ -52,21 +58,18 @@ public class ObjectCreator {
      * Selection 3 - an array containing primitives
      */
     public Object simpleArray(){
-        Scanner kb = new Scanner(System.in);
         System.out.println("Creating simple array");
 
-        int arrayLength = setArrayLength(kb);
+        int arrayLength = setArrayLength();
 
         SimpleArray simpleArrayObject = new SimpleArray();
         simpleArrayObject.intArray = new int[arrayLength];
 
         for(int i = 0; i < arrayLength; i++){
-            simpleArrayObject.intArray[i] = setSimpleInt(kb);
+            simpleArrayObject.intArray[i] = setSimpleInt();
         }
         
-        kb.close();
         return simpleArrayObject;
-        //return simpleArrayObject.intArray;
     }
 
     /*
@@ -74,35 +77,31 @@ public class ObjectCreator {
      */
     public Object arrayReferences(){
         System.out.println("Creating references array");
-        Scanner kb = new Scanner(System.in);
 
-        int arrayLength = setArrayLength(kb);
+        int arrayLength = setArrayLength();
         ReferenceArray refArray = new ReferenceArray();
         refArray.simpleObjectArray = new SimpleObject[arrayLength];
 
         for(int i = 0; i < arrayLength; i++){
-            refArray.simpleObjectArray[i] = (SimpleObject)createSimpleObject(kb);
+            refArray.simpleObjectArray[i] = (SimpleObject)createSimpleObject();
         }
 
-        kb.close();
         return refArray;
-        //return refArray.simpleObjectArray;
     }
 
     /*
      * Selection 5 - an arraylist referencing simple objects
      */
     public Object collectionObj(){
-        Scanner kb = new Scanner(System.in);
 
         System.out.println("Creating collection object");
-        int collectionLength = setArrayLength(kb);
+        int collectionLength = setArrayLength();
 
         CollectionObject collectionObj;
         ArrayList<SimpleObject> localArrayList= new ArrayList<SimpleObject>();
 
         for(int i = 0; i < collectionLength; i++){
-            localArrayList.add((SimpleObject)createSimpleObject(kb));
+            localArrayList.add((SimpleObject)createSimpleObject());
         }
 
         collectionObj = new CollectionObject();
@@ -122,22 +121,21 @@ public class ObjectCreator {
         CircularObject obj2 = new CircularObject();
 
         System.out.print("Provide an ID for the first object: ");
-        obj1.objectID = setSimpleInt(kb);
+        obj1.objectID = setSimpleInt();
 
         System.out.print("Provide an ID for the second object: ");
-        obj2.objectID = setSimpleInt(kb);
+        obj2.objectID = setSimpleInt();
 
         obj1.referencedObject = obj2;
         obj2.referencedObject = obj1;
 
-        kb.close();
         return obj1;
     }
 
     /*
      * Sets the fields in a simple object
      */
-    public Object createSimpleObject(Scanner kb){
+    public Object createSimpleObject(){
 
         SimpleObject simpleObj = new SimpleObject();
         Class objClass = simpleObj.getClass();
@@ -149,13 +147,13 @@ public class ObjectCreator {
 
             try{
                 if(fieldType.equals(int.class)){
-                    f.setInt(simpleObj, setSimpleInt(kb));
+                    f.setInt(simpleObj, setSimpleInt());
                 } else if(fieldType.equals(char.class)){
-                    f.setChar(simpleObj, setSimpleChar(kb));
+                    f.setChar(simpleObj, setSimpleChar());
                 } else if(fieldType.equals(boolean.class)){
-                    f.setBoolean(simpleObj, setSimpleBoolean(kb));
+                    f.setBoolean(simpleObj, setSimpleBoolean());
                 } else if(fieldType.equals(double.class)){
-                    f.setDouble(simpleObj, setSimpleDouble(kb));
+                    f.setDouble(simpleObj, setSimpleDouble());
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -165,11 +163,11 @@ public class ObjectCreator {
         return simpleObj;
     }
 
-    private int setArrayLength(Scanner kb){
+    private int setArrayLength(){
         String input;
         while (true) {
             System.out.print("Enter a length (greater than 0): ");
-            input = kb.nextLine();
+            input = kbReader.nextLine();
             try {
                 int length = Integer.parseInt(input);
                 if(length >= 1) return length;
@@ -179,21 +177,21 @@ public class ObjectCreator {
         }
     }
 
-    private boolean setSimpleBoolean(Scanner kb){
+    private boolean setSimpleBoolean(){
         String input;
         while (true){
             System.out.print("\nEnter \"true\" or \"false\": ");
-            input = kb.nextLine();
+            input = kbReader.nextLine();
             if(input.equals("true") || input.equals("false")){
                 return Boolean.parseBoolean(input);
             }
         }
     }
-    private int setSimpleInt(Scanner kb) {
+    private int setSimpleInt() {
         String input;
         while (true) {
             System.out.print("Enter an integer: ");
-            input = kb.nextLine();
+            input = kbReader.nextLine();
             try {
                 return Integer.parseInt(input);
             } catch (NumberFormatException e) {
@@ -202,12 +200,12 @@ public class ObjectCreator {
         }
     }
 
-    private double setSimpleDouble(Scanner kb) {
+    private double setSimpleDouble() {
         String input;
 
         while (true) {
             System.out.print("Enter a double: ");
-            input = kb.nextLine();
+            input = kbReader.nextLine();
             try {
                 return Double.parseDouble(input);
             } catch (NumberFormatException e) {
@@ -216,10 +214,10 @@ public class ObjectCreator {
         }
     }
 
-    private char setSimpleChar(Scanner kb) {
+    private char setSimpleChar() {
         while(true){
             System.out.print("Enter a character: ");
-            String input = kb.nextLine();
+            String input = kbReader.nextLine();
             if (input.length() == 1) {                    
                 return input.charAt(0);
             } else {

@@ -49,28 +49,32 @@ public class Driver {
         Scanner kb = new Scanner(System.in);
         int objectSelection;
 
-        //runs until proper input has been provided
-        while(true){
-            System.out.print("\nYour selection: ");
-            objectSelection = kb.nextInt();
+        try{
+            //runs until proper input has been provided
+            while(true){
+                System.out.print("\nYour selection: ");
+                objectSelection = kb.nextInt();
 
-            switch(objectSelection){
-                case 1: 
-                    return objCreator.simpleObject();
-                case 2:
-                    return objCreator.objectReference();
-                case 3:
-                    return objCreator.simpleArray();
-                case 4:
-                    return objCreator.arrayReferences();
-                case 5:
-                    return objCreator.collectionObj();
-                case 6:
-                    return objCreator.circularObject();
-            
-                default:
-                    System.out.println("Invalid selection made");
+                switch(objectSelection){
+                    case 1: 
+                        return objCreator.simpleObject();
+                    case 2:
+                        return objCreator.objectReference();
+                    case 3:
+                        return objCreator.simpleArray();
+                    case 4:
+                        return objCreator.arrayReferences();
+                    case 5:
+                        return objCreator.collectionObj();
+                    case 6:
+                        return objCreator.circularObject();
+                
+                    default:
+                        System.out.println("Invalid selection made");
+                }
             }
+        } finally{
+            objCreator.closeScanner();
         }
     }
 }
