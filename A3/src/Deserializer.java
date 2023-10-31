@@ -33,7 +33,6 @@ public class Deserializer {
             List fElts = oElt.getChildren();
 
             if(instance instanceof ArrayList){
-                System.out.println("Recognized instance of ArrayList with size of "+fElts.size());
                 for(int j = 0; j < fElts.size(); j++){
                     Class comptype = fElts.get(0).getClass();
                     ((ArrayList)instance).add(deserializeValue((Element)fElts.get(j), comptype, table));
