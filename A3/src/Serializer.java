@@ -10,10 +10,9 @@ import java.util.List;
 import java.util.Map;
 
 /*
- * Serializer from Java Reflection in Action - Forman & Forman
+ * Used parts from Java Reflection in Action - Forman & Forman
  */
 public class Serializer {
-    public final static String fileName = "src/Course.xml";
 
     public Document serialize(Object obj) {
 
