@@ -90,7 +90,7 @@ public class ObjectCreator {
     }
 
     /*
-     * Selection 5
+     * Selection 5 - an arraylist referencing simple objects
      */
     public Object collectionObj(){
         Scanner kb = new Scanner(System.in);
@@ -112,7 +112,7 @@ public class ObjectCreator {
     }
 
     /*
-     * Selection 6 - an object with a reference to another object
+     * Selection 6 - an object with a circular reference to another object
      */
     public Object circularObject(){
         Scanner kb = new Scanner(System.in);
