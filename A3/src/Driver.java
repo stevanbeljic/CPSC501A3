@@ -17,6 +17,13 @@ import org.jdom2.output.XMLOutputter;
 public class Driver {
     public static void main(String[] args){
 
+        if(args.length != 1){
+            System.out.println("Usage: java -cp .;jdom-2.0.6.1.jar Driver <port number>");
+            return;
+        }
+
+        int port = Integer.parseInt(args[0]);
+
         //create the initial object
         Object toSerializeObject = initialObjectCreation();
 
@@ -35,7 +42,7 @@ public class Driver {
         System.out.println("Object serialized");
 
         //send the document
-        new Sender().send(toSendDocument);
+        new Sender().send(toSendDocument, port);
     }
 
     /*
