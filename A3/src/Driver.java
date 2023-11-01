@@ -24,25 +24,25 @@ public class Driver {
 
         int port = Integer.parseInt(args[0]);
 
-        //create the initial object
-        Object toSerializeObject = initialObjectCreation();
+        while(true){
+            //create the initial object
+            Object toSerializeObject = initialObjectCreation();
 
-        //serialize the object
-        Serializer serializer = new Serializer();
-        Document toSendDocument = serializer.serialize(toSerializeObject);
+            if(toSerializeObject == null){
+                break;
+            }
 
-        // XMLOutputter outputter = new XMLOutputter(Format.getPrettyFormat());
-        // try {
-        //     outputter.output(toSendDocument, System.out);
-        // } catch (IOException e) {
-        //     System.out.println("Error serializing");
-        //     e.printStackTrace();
-        // }
+            //serialize the object
+            Serializer serializer = new Serializer();
+            Document toSendDocument = serializer.serialize(toSerializeObject);
 
-        System.out.println("Object serialized");
+            System.out.println("Object serialized");
 
-        //send the document
-        new Sender().send(toSendDocument, port);
+            //send the document
+            new Sender().send(toSendDocument, port);
+        }
+
+        System.out.println("Driver terminated");
     }
 
     /*
@@ -56,32 +56,32 @@ public class Driver {
         Scanner kb = new Scanner(System.in);
         int objectSelection;
 
-        try{
-            //runs until proper input has been provided
-            while(true){
-                System.out.print("\nYour selection: ");
-                objectSelection = kb.nextInt();
+        
+        //runs until proper input has been provided
+        while(true){
+            System.out.print("\nYour selection (-1 to quit): ");
+            objectSelection = kb.nextInt();
 
-                switch(objectSelection){
-                    case 1: 
-                        return objCreator.simpleObject();
-                    case 2:
-                        return objCreator.objectReference();
-                    case 3:
-                        return objCreator.simpleArray();
-                    case 4:
-                        return objCreator.arrayReferences();
-                    case 5:
-                        return objCreator.collectionObj();
-                    case 6:
-                        return objCreator.circularObject();
+            switch(objectSelection){
+                case 1: 
+                    return objCreator.simpleObject();
+                case 2:
+                    return objCreator.objectReference();
+                case 3:
+                    return objCreator.simpleArray();
+                case 4:
+                    return objCreator.arrayReferences();
+                case 5:
+                    return objCreator.collectionObj();
+                case 6:
+                    return objCreator.circularObject();
+                case -1:
+                    return null;
                 
-                    default:
-                        System.out.println("Invalid selection made");
+                default:
+                    System.out.println("Invalid selection made");
                 }
             }
-        } finally{
-            objCreator.closeScanner();
-        }
+        
     }
 }

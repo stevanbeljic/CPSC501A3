@@ -20,6 +20,7 @@ public class Sender {
                 outputStream.close();
                 clientSocket.close();
                 System.out.println("Serialized object sent");
+                serverSocket.close();
                 break;
             }
 
