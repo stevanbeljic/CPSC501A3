@@ -41,7 +41,7 @@ public class Driver {
             //send the document
             new Sender().send(toSendDocument, port);
         }
-
+        new Sender().sendTerminate(port);
         System.out.println("Driver terminated");
     }
 

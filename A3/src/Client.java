@@ -16,26 +16,34 @@ public class Client {
         String ipAddress = args[0];
         int port = Integer.parseInt(args[1]);
 
-        Reciever reciever = new Reciever();
-        Document rDocument;
-        try {
-            rDocument = reciever.recieve(ipAddress, port);
-        } catch (Exception e){
-            e.printStackTrace();
-            rDocument = null;
-        }
-        Deserializer deserializer = new Deserializer();
-        Object deserializedObject;
-        
-        try{
-            deserializedObject = deserializer.deserialize(rDocument);
 
-            Inspector inspector = new Inspector();
-            System.out.println(messageSplit);
-            inspector.inspect(deserializedObject, true);
-            System.out.println(messageSplit);
-        } catch (Exception e) {
-            e.printStackTrace(System.out);
+        while(true){
+
+            Reciever reciever = new Reciever();
+            Document rDocument;
+            try {
+                rDocument = reciever.recieve(ipAddress, port);
+            } catch (TerminateConnectionException tCE){
+                break;
+            } catch (Exception e){
+                //e.printStackTrace();
+                rDocument = null;
+            }
+            Deserializer deserializer = new Deserializer();
+            Object deserializedObject;
+            
+            try{
+                deserializedObject = deserializer.deserialize(rDocument);
+
+                Inspector inspector = new Inspector();
+                System.out.println(messageSplit);
+                inspector.inspect(deserializedObject, true);
+                System.out.println(messageSplit);
+            } catch (Exception e) {
+                e.printStackTrace(System.out);
+            }
         }
+
+        System.out.println("Server terminated connection - no more objects to recieve");
     }
 }
